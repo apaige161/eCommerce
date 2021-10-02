@@ -1,0 +1,16 @@
+
+
+//babel config file
+
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "node":"current"
+                }
+            }
+        ],
+    ]
+}
