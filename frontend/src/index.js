@@ -1,10 +1,11 @@
-/* eslint-disable linebreak-style */
+
 import Error404Screen from './screens/Error404Screen';
 import HomeScreen from './screens/homeScreen';
 import ProductScreen from './screens/ProductScreen';
 import { parsRequestUrl } from './utils';
 
 // hold routes
+// this data come from the parseUrl function
 const routes = {
   '/': HomeScreen,
   '/product/:id': ProductScreen,
@@ -30,4 +31,5 @@ const router = async () => {
 // render on the load event
 window.addEventListener('load', router);
 
+// fires when the url changes
 window.addEventListener('hashchange', router);

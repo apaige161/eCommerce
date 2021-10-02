@@ -15,6 +15,7 @@ const app = express();
 // middleware
 app.use(cors());
 
+//get the products
 app.get('/api/products', (req, res) => {
     // return data array to the client
     res.send(data.products);
