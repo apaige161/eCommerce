@@ -2,6 +2,8 @@
 import Error404Screen from './screens/Error404Screen';
 import HomeScreen from './screens/homeScreen';
 import ProductScreen from './screens/ProductScreen';
+import SignInScreen from './screens/SignInScreen';
+import CartScreen from './screens/CartScreen';
 import { parsRequestUrl } from './utils';
 
 // hold routes
@@ -9,6 +11,8 @@ import { parsRequestUrl } from './utils';
 const routes = {
   '/': HomeScreen,
   '/product/:id': ProductScreen,
+  '/signin': SignInScreen,
+  '/cart': CartScreen,
 };
 
 // create router function
