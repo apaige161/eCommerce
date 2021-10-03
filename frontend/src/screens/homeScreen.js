@@ -6,6 +6,7 @@ import Rating from '../components/Rating';
 
 const HomeScreen = {
     render: async () => {
+        
         // get request from backend
         const response = await axios({
             // set request string

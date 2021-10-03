@@ -15,7 +15,13 @@ const routes = {
 const router = async () => {
   const request = parsRequestUrl();
   // get resource if it exists otherwise go to homepage
-  const parseUrl = (request.resource ? `/${request.resource}` : '/') + (request.id ? '/:id' : '') + (request.verb ? `${request.verb}` : '');
+  const parseUrl = 
+    // if resource exists, use it. example: product
+    (request.resource ? `/${request.resource}` : '/') 
+    // if id exists, use it. example: product/1
+    + (request.id ? '/:id' : '')
+    // if verb exists, use it. example: <TODO>
+    + (request.verb ? `${request.verb}` : '');
 
   // return error page if route does not exist
   const screen = routes[parseUrl] ? routes[parseUrl] : Error404Screen;
@@ -25,6 +31,8 @@ const router = async () => {
   const main = document.getElementById('main-container');
 
   // render data base on what the user entered
+  // set innerHTML of the 'main-container' to url data. 
+    // example: homeScreen "/", show products
   main.innerHTML = await screen.render();
 };
 
