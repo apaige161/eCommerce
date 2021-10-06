@@ -12,6 +12,7 @@ const routes = {
   '/': HomeScreen,
   '/product/:id': ProductScreen,
   '/signin': SignInScreen,
+  '/cart/:id': CartScreen,
   '/cart': CartScreen,
 };
 
@@ -38,6 +39,8 @@ const router = async () => {
   // set innerHTML of the 'main-container' to url data. 
     // example: homeScreen "/", show products
   main.innerHTML = await screen.render();
+
+  if(screen.after_render) await screen.after_render();
 };
 
 // render on the load event
