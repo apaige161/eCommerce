@@ -63,7 +63,7 @@ export default {
       brand: 'Aelfric Eden',
       rating: 4.5,
       numReviews: 45,
-      countInStock: 6,
+      countInStock: 10,
     },
   ],
 };

@@ -1,6 +1,6 @@
 import { getProduct } from "../api";
 import { getCartItems, setCartItems } from "../localStorage";
-import { parsRequestUrl } from "../utils";
+import { parsRequestUrl, rerender } from "../utils";
 
 // save items to local storage
 const addToCart = (item, forceUpdate = false) => {
@@ -12,7 +12,10 @@ const addToCart = (item, forceUpdate = false) => {
     // replace item with new item ID if item exists in cart
     //  just update do not add
     if(itemExists) { // item is already in shopping cart
-        cartItems = cartItems.map((x) => x.product === itemExists.product? item : x)
+        if(forceUpdate) {
+            cartItems = cartItems.map((x) => x.product === itemExists.product? item : x)
+        }
+        
     } else { 
         // concatenate this item to cart items
         cartItems = [...cartItems, item]
@@ -20,12 +23,62 @@ const addToCart = (item, forceUpdate = false) => {
 
     // save to loacl storage
     setCartItems(cartItems);
+
+    // rerender cart screen conditionally
+    if(forceUpdate) {
+        rerender(CartScreen);
+    }
 };
 
-const CartScreen = {
-    // after render
-    after_render:() => {
+const removeFromCart = (id) => {
+    // update local storage by removing this item
+    // get cart items without the product to be deleted, filter it out by ID
+    // does not really "delete" item but resets the local storage instead
+    setCartItems(getCartItems().filter((x) => x.product !== id));
+    // check id of deleted product to url
+    if(id === parsRequestUrl().id) {
+        // redirect user to cart screen
+        document.location.hash = '/cart'
+    } else {
+        // just rerender
+        rerender(CartScreen);
+    }
+}
 
+const CartScreen = {
+    // this part listens for changes and acts on them
+    after_render:() => {
+        // updates quantity of each item
+        // target select boxes and add change event to them
+        const qtySelects = document.getElementsByClassName("qty-select");
+        // convert to array
+        Array.from(qtySelects).forEach( qtySelect => {
+            // add event listener to each item on change
+            // do this onChange
+            qtySelect.addEventListener('change', (e) => {
+                // find the item
+                const item = getCartItems().find((x) => x.product === qtySelect.id)
+                // update cart, cast the qty string to a number
+                addToCart({...item, qty: Number(e.target.value)}, true)
+            });
+        });
+
+        // handles the delete of items
+        const deleteButtons = document.getElementsByClassName('delete-button');
+        // convert to array
+        Array.from(deleteButtons).forEach( deleteButton => {
+            // add click event listener
+            deleteButton.addEventListener('click', () => {
+                // delete item by ID
+                // ID was set in the HTML
+                removeFromCart(deleteButton.id);
+            });
+        });
+
+        // redirect user to signInScreen when they select checkout
+        document.getElementById("checkout-button").addEventListener("click", () => {
+            document.location.hash = '/signin';
+        })
     },
     // render cart sreen
     render: async ()=>{
@@ -77,7 +130,17 @@ const CartScreen = {
                                             <div>
                                                 Qty: 
                                                 <select class="qty-select" id="${item.product}">
-                                                    <option value="1">1</option>
+                                                    <!-- map quantity of item in stock -->
+                                                    <!-- Display selected quantity in shopping cart -->
+                                                    <!-- x is the index of array (0 based) -->
+                                                    <!-- if qty = item[x+1] set option value -->
+                                                    <!-- if not, display x+1 -->
+                                                    ${
+                                                        [...Array(item.countInStock).keys()].map(x => item.qty === x+1?
+                                                            `<option selected value="${x+1}">${x+1}</option>`:
+                                                            `<option value="${x+1}">${x+1}</option>`
+                                                        )
+                                                    }
                                                 </select>
                                                 <button class="delete-button" id="${item.product}">Delete</button>
                                             </div>

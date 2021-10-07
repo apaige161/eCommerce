@@ -24,3 +24,4 @@
 
 #### Things to look into
 1. flex-grow
+1. after_render();

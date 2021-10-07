@@ -17,3 +17,9 @@ export const parsRequestUrl = () => {
     }
 }
 
+export const rerender = async component => {
+    // re-render everything but the header and footer
+    document.getElementById('main-container').innerHTML = 
+        await component.render();
+        await component.after_render();
+}
