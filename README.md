@@ -19,3 +19,8 @@
 
 #### General Notes
 1. rem is used for the CSS to set 1rem = 16 px to standardize sizes
+1. using flex-wrap to make css responsive
+
+
+#### Things to look into
+1. flex-grow
