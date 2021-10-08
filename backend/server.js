@@ -3,12 +3,33 @@
 import express from 'express';
 import cors from 'cors';
 import data from './data';
+import mongoose from 'mongoose';
+import config from './config';
+import UserRouter from './routes/userRoute';
+
+// connect to the database
+const connectionParams={}
+mongoose.connect(config.MONGODB_URL, connectionParams)
+    .then( () => {
+        console.log('Connected to database ')
+    })
+    .catch( (err) => {
+        console.error(`Error connecting to the database. \n${err}`);
+    })
+
 
 // return webapp obj
 const app = express();
 
-// middleware
+/*********************************************************************************
+ *
+ * middleware
+ *  
+**********************************************************************************/ 
+//headers
 app.use(cors());
+//handle users
+app.use('/api/users', UserRouter)
 
 //get all the products
 app.get('/api/products', (req, res) => {
