@@ -4,8 +4,11 @@ import express from 'express';
 import cors from 'cors';
 import data from './data';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser'; 
 import config from './config';
 import UserRouter from './routes/userRoute';
+
+// http://localhost:5000
 
 // connect to the database
 const connectionParams={}
@@ -26,12 +29,25 @@ const app = express();
  * middleware
  *  
 **********************************************************************************/ 
-//headers
+// headers
 app.use(cors());
-//handle users
+
+// read body of request to server from client side
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
+
+// handle users
 app.use('/api/users', UserRouter)
 
-//get all the products
+
+/*********************************************************************************
+ *
+ * routes
+ *  
+**********************************************************************************/ 
+// get all the products
 app.get('/api/products', (req, res) => {
     // return data array to the client
     res.send(data.products);
@@ -52,6 +68,13 @@ app.get('/api/products/:id', (req, res) => {
     
 })
 
+//handle errors
+app.use( (err, req, res, next) => {
+    // user entered something wrong return 'validation error'
+    // otherwise return 500 'internal server error'
+    const status = err.name && err.name === 'ValidationError' ? 400 : 500
+    res.status(status).send({message: err.message});
+});
 
 app.listen(5000, () => {
     console.log('server started at http://localhost:5000');

@@ -26,7 +26,14 @@
 1. Admin login -- user: admin -- password: !TmX3B#AgXx!9W$
 1. user login
 1. connection string is in the .env file
+1. use async methods for all DB interaction
+1. use JWT for auth
 
 #### Things to look into
 1. flex-grow
-1. after_render();
+1. after_render(); - used to rerender the page when an action happens
+
+#### Dependencies
+1. body-parser : can read body of a server request
+1. express async handler
+1. jwt
