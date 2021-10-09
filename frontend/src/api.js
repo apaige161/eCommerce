@@ -24,6 +24,33 @@ export const getProduct = async (id) => {
     } catch(err) {
         console.log('error in api.js')
         console.log(err);
-        return { error: err.response.data.meassage || err.message };
+        return { error: err.response.data.message || err.message };
+    }
+};
+
+export const signin = async ({email, password}) => {
+    try {
+        // ping server
+        const response = await Axios({
+            url: `${apiUrl}/api/users/signin`,
+            method: 'POST',
+            header: {
+                'Content-Type':'application/json'
+            },
+            // data to be sent to server
+            data: {
+                email,
+                password,
+            }
+        });
+        // handle errors
+        if(response.statusText !== "OK") {
+            throw new Error(response.data.message);
+        }
+        // success case
+        return response.data;
+    } catch(err) {
+        console.log(err);
+        return { error: err.response.data.message || err.message }
     }
 }

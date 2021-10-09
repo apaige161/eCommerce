@@ -5,6 +5,7 @@ import ProductScreen from './screens/ProductScreen';
 import SignInScreen from './screens/SignInScreen';
 import CartScreen from './screens/CartScreen';
 import { parsRequestUrl } from './utils';
+import Header from './components/Header';
 
 // hold routes
 // this data come from the parseUrl function
@@ -31,11 +32,17 @@ const router = async () => {
   // return error page if route does not exist
   const screen = routes[parseUrl] ? routes[parseUrl] : Error404Screen;
 
+  //render header
+  const header = document.getElementById('header-container');
+  //set
+  header.innerHTML = await Header.render();
+  await Header.after_render();
+
   // get the element to fill
   // set content of the main container
   const main = document.getElementById('main-container');
 
-  // render data base on what the user entered
+  // render data based on what the user entered
   // set innerHTML of the 'main-container' to url data. 
     // example: homeScreen "/", show products
   main.innerHTML = await screen.render();
