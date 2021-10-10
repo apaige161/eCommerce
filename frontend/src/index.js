@@ -21,30 +21,40 @@ const routes = {
 // create router function
 const router = async () => {
   const request = parsRequestUrl();
+
   // get resource if it exists otherwise go to homepage
   const parseUrl = 
-    // if resource exists, use it. example: product
+    // if resource exists, use it. example: product, otherwise redirect to homepage
     (request.resource ? `/${request.resource}` : '/') 
     // if id exists, use it. example: product/1
     + (request.id ? '/:id' : '')
-    // if verb exists, use it. example: <TODO>
+    // if verb exists, use it. example: GET, POST
     + (request.verb ? `${request.verb}` : '');
 
+  /*******************************************************************
+   * 
+   * Build the page data
+   * 
+   *******************************************************************/
+
   // return error page if route does not exist
+  // if a defined route exists, set the value to screen
+  // routes accesses the object by searching for the parseUrl key
+    // for example if parseUrl = '/', screen = "HomeScreen"
   const screen = routes[parseUrl] ? routes[parseUrl] : Error404Screen;
+
+  console.log(screen);
 
   //render header
   const header = document.getElementById('header-container');
-  //set
   header.innerHTML = await Header.render();
   await Header.after_render();
 
   // get the element to fill
   // set content of the main container
   const main = document.getElementById('main-container');
-
   // render data based on what the user entered
-  // set innerHTML of the 'main-container' to url data. 
+  // set innerHTML of the 'main-container' to url data
     // example: homeScreen "/", show products
   main.innerHTML = await screen.render();
 
@@ -56,3 +66,9 @@ window.addEventListener('load', router);
 
 // fires when the url changes
 window.addEventListener('hashchange', router);
+
+
+
+
+
+
