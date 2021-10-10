@@ -17,9 +17,17 @@ const routes = {
   '/cart': CartScreen,
 };
 
-/* Root Function */
+/*********************************************************************
+ * 
+ * Root Function 
+ *  - Handles what to load to the browser
+ *  
+ **********************************************************************/
+
 // create router function
 const router = async () => {
+  
+  // get url data, sets resource, ID, and verb to an object
   const request = parsRequestUrl();
 
   // get resource if it exists otherwise go to homepage
@@ -35,29 +43,44 @@ const router = async () => {
    * 
    * Build the page data
    * 
+   *  - Find the screen to render from the url
+   *     - `routes` accesses the object by searching for the `parseUrl` key
+   *        - for example if <key> parseUrl = '/', <value> screen = "HomeScreen"
+   *     - return error page if route does not exist
+   *     - if a defined route exists, set the value to screen
+   * 
+   *  - Render components
+   *    - Select the element to fill with js data
+   *    - Set innerHTML to what is going to be rendered (component data)
+   *      - example (for home): main.innerHTML = await HomeScreen.render();
+   *      - example (for cart): main.innerHTML = await CartScreen.render();
+   *    - Run after_render() if any data changes
+   * 
    *******************************************************************/
 
-  // return error page if route does not exist
-  // if a defined route exists, set the value to screen
-  // routes accesses the object by searching for the parseUrl key
-    // for example if parseUrl = '/', screen = "HomeScreen"
+  // set the correct screen to render
   const screen = routes[parseUrl] ? routes[parseUrl] : Error404Screen;
 
-  //render header
+  // render header
   const header = document.getElementById('header-container');
   header.innerHTML = await Header.render();
   await Header.after_render();
 
-  // get the element to fill
-  // set content of the main container
+  // render main section
   const main = document.getElementById('main-container');
-  // render data based on what the user entered
-  // set innerHTML of the 'main-container' to url data
-    // example: homeScreen "/", show products
   main.innerHTML = await screen.render();
 
+  // TODO: Why is this here????
   if(screen.after_render) await screen.after_render();
 };
+
+/*********************************************************************
+ * 
+ * Load events 
+ *  - runs code on first page load
+ *  - runs code based on url changes
+ * 
+ **********************************************************************/
 
 // render on the load event
 window.addEventListener('load', router);
