@@ -43,8 +43,6 @@ const router = async () => {
     // for example if parseUrl = '/', screen = "HomeScreen"
   const screen = routes[parseUrl] ? routes[parseUrl] : Error404Screen;
 
-  console.log(screen);
-
   //render header
   const header = document.getElementById('header-container');
   header.innerHTML = await Header.render();
