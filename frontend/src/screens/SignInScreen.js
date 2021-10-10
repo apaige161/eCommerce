@@ -11,10 +11,13 @@ const SignInScreen = {
                 e.preventDefault();
                 // call signin api with user data
                 // server will respond with user data or an error
+                // signin() come from ../api.js
+                // data holds the response from the server
                 const data = await signin({
                     email: document.getElementById('email').value,
                     password: document.getElementById('password').value
                 });
+
                 // handle error
                 // alert user
                 if(data.error) {
@@ -28,8 +31,6 @@ const SignInScreen = {
             })
 
     },
-
-
 
     // render product sreen
     render:()=>{

@@ -17,6 +17,7 @@ const routes = {
   '/cart': CartScreen,
 };
 
+/* Root Function */
 // create router function
 const router = async () => {
   const request = parsRequestUrl();
