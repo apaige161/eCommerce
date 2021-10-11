@@ -1,6 +1,4 @@
-/* eslint-disable indent */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-underscore-dangle */
+
 import axios from 'axios';
 import Rating from '../components/Rating';
 

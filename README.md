@@ -5,6 +5,7 @@
 1. run the backend - $ npm start
 1. run the client side - $ cd frontend && npm start
 1. atlas user: monkeybeaver10@yahoo.com  pass: Ecommerce
+    - connection string in .env file
 
 ### Ecommerce site
 1. Inspired by amazon, built on vanilla js for learning purposes
@@ -23,7 +24,7 @@
 1. using flex-wrap to make css responsive
 
 #### Auth
-1. Admin login -- user: admin -- password: !TmX3B#AgXx!9W$
+1. Admin login atlas?? -- user: admin -- password: !TmX3B#AgXx!9W$
 1. user login
 1. connection string is in the .env file
 1. use async methods for all DB interaction
@@ -32,6 +33,7 @@
 #### Things to look into
 1. flex-grow
 1. after_render(); - used to rerender the page when an action happens
+    1. rerender certain elements based on thing that have changed (ex./ number of items in cart)
 
 #### Dependencies
 1. body-parser : can read body of a server request

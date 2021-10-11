@@ -12,8 +12,8 @@ export const parsRequestUrl = () => {
     // http://localhost:8080/#/product/2
     return {
         resource: request[1], // second item - product
-        id: request[2],
-        action: request[3],
+        id: request[2], // ID
+        action: request[3], // verb, ex./ POST, GET, PUT
     }
 }
 
