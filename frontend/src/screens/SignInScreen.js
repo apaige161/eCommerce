@@ -11,7 +11,7 @@ const SignInScreen = {
                 e.preventDefault();
                 // call signin api with user data
                 // server will respond with user data or an error
-                // signin() come from ../api.js
+                // signin() comes from ../api.js
                 // data holds the response from the server
                 const data = await signin({
                     email: document.getElementById('email').value,
@@ -33,7 +33,7 @@ const SignInScreen = {
     },
 
     // render product sreen
-    render:()=>{
+    render:() => {
         // redirect user to home page if they are already signed in
         if(getUserInfo().name) {
             document.location.hash = '/';
