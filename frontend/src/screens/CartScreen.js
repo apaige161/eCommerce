@@ -77,6 +77,7 @@ const CartScreen = {
 
         // redirect user to signInScreen when they select checkout
         document.getElementById("checkout-button").addEventListener("click", () => {
+            // redirect user to signin page when not already signed in
             document.location.hash = '/signin';
         })
     },

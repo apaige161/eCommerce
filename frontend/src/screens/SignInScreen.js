@@ -1,5 +1,6 @@
 import { signin } from "../api";
 import { getUserInfo, setUserInfo } from "../localStorage";
+import { hideLoading, showLoading } from "../utils";
 
 const SignInScreen = {
 
@@ -9,12 +10,16 @@ const SignInScreen = {
             .addEventListener('submit', async (e) => {
                 // form will not refresh and post back to the server
                 e.preventDefault();
+                // call loading elements
+                showLoading();
                 // call signin api with user data
                 // server will respond with user data or an error
                 const data = await signin({
                     email: document.getElementById('email').value,
                     password: document.getElementById('password').value
                 });
+                //hide loading elements
+                hideLoading();
                 // handle error
                 // alert user
                 if(data.error) {

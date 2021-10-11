@@ -23,3 +23,12 @@ export const rerender = async component => {
         await component.render();
         await component.after_render();
 }
+
+// show/hide loading elements
+export const showLoading = () => {
+    document.getElementById('loading-overlay').classList.add('active');
+}
+
+export const hideLoading = () => {
+    document.getElementById('loading-overlay').classList.remove('active');
+}
