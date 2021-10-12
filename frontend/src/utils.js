@@ -32,3 +32,24 @@ export const showLoading = () => {
 export const hideLoading = () => {
     document.getElementById('loading-overlay').classList.remove('active');
 }
+
+// custom error message
+    // takes a message and a callback that is fired after ok is click in a message box
+export const showMessage = (message, callback) => {
+    // create loading message
+    document.getElementById('message-overlay').innerHTML = `
+        <div>
+            <div id="message-overlay-content">${message}</div>
+            <button id="message-overlay-close-button">OK</button>
+        </div>
+    `;
+    // set and remove active class on message-overlay
+    document.getElementById('message-overlay').classList.add('active');
+
+    document.getElementById('message-overlay-close-button').addEventListener('click', () => {
+        document.getElementById('message-overlay').classList.remove('active');
+        if(callback) {
+            callback();
+        }
+    });
+}

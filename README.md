@@ -35,7 +35,8 @@
 1. after_render(); - used to rerender the page when an action happens
     1. rerender certain elements based on thing that have changed (ex./ number of items in cart)
 
-#### Dependencies
-1. body-parser : can read body of a server request
-1. express async handler
-1. jwt
+#### extensions
+1. html&LESS grammer injections
+1. js(ES6)
+1. ES7 React/Redux/GraphQL
+1. prettier

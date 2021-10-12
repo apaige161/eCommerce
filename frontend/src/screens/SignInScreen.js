@@ -1,6 +1,6 @@
 import { signin } from "../api";
 import { getUserInfo, setUserInfo } from "../localStorage";
-import { hideLoading, showLoading } from "../utils";
+import { hideLoading, showLoading, showMessage } from "../utils";
 
 const SignInScreen = {
 
@@ -8,8 +8,10 @@ const SignInScreen = {
         // attach event listener for signin-form submit
         document.getElementById('signin-form')
             .addEventListener('submit', async (e) => {
+                
                 // form will not refresh and post back to the server
                 e.preventDefault();
+
                 // call loading elements
                 showLoading();
                 // call signin api with user data
@@ -20,13 +22,14 @@ const SignInScreen = {
                     email: document.getElementById('email').value,
                     password: document.getElementById('password').value
                 });
+
                 //hide loading elements
                 hideLoading();
 
                 // handle error
-                // alert user
+                // alert user with custom error message
                 if(data.error) {
-                    alert(data.error);
+                    showMessage(data.error);
                 } else { // success case
                     //save user data in local storage
                     setUserInfo(data);

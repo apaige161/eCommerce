@@ -1,6 +1,6 @@
 import { getProduct } from "../api";
 import Rating from "../components/Rating";
-import { parsRequestUrl } from "../utils";
+import { hideLoading, parsRequestUrl, showLoading } from "../utils";
 
 
 const ProductScreen = {
@@ -23,12 +23,19 @@ const ProductScreen = {
         
         // get request from parseUrl function
         const request = parsRequestUrl();
+
+        // call loading elements before ajax request
+        showLoading();
+
         // product returns a promise
         const product = await getProduct(request.id);
         // null check
         if(product.error) {
             return(`<div>${product.error}</div>`)
         }
+
+        // hide load elements
+        hideLoading();
         return `
             <div class="content">
                 <div class="back-to-result">

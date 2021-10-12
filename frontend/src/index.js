@@ -4,7 +4,7 @@ import HomeScreen from './screens/homeScreen';
 import ProductScreen from './screens/ProductScreen';
 import SignInScreen from './screens/SignInScreen';
 import CartScreen from './screens/CartScreen';
-import { parsRequestUrl } from './utils';
+import { hideLoading, parsRequestUrl, showLoading } from './utils';
 import Header from './components/Header';
 
 // hold routes
@@ -26,7 +26,10 @@ const routes = {
 
 // create router function
 const router = async () => {
-  
+
+  // call loading function
+  showLoading();
+
   // get url data, sets resource, ID, and verb to an object
   const request = parsRequestUrl();
 
@@ -72,6 +75,9 @@ const router = async () => {
 
   // TODO: Why is this here????
   if(screen.after_render) await screen.after_render();
+
+  // hide loading elements when everything is finished loading
+  hideLoading();
 };
 
 /*********************************************************************

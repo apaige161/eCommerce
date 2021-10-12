@@ -1,9 +1,13 @@
 
 import axios from 'axios';
 import Rating from '../components/Rating';
+import { hideLoading, showLoading } from '../utils';
 
 const HomeScreen = {
     render: async () => {
+
+        // call loading elements
+        showLoading();
         
         // get request from backend
         const response = await axios({
@@ -14,6 +18,9 @@ const HomeScreen = {
                 'Content-Type': 'application/json',
             },
         });
+
+        // hide loading elements
+        hideLoading();
 
         // check for errors
         if (!response || response.statusText !== 'OK') {
