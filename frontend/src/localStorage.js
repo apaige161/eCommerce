@@ -43,6 +43,10 @@ export const setUserInfo = ({
     );
   };
 
+export const clearUser = () => {
+  localStorage.removeItem('userInfo');
+}
+
 export const getUserInfo = () => {
     // if any data exists parse to json
     // fail case, set data to empty strings

@@ -4,8 +4,10 @@ import HomeScreen from './screens/homeScreen';
 import ProductScreen from './screens/ProductScreen';
 import SignInScreen from './screens/SignInScreen';
 import CartScreen from './screens/CartScreen';
+import RegisterScreen from './screens/RegisterScreen'
 import { hideLoading, parsRequestUrl, showLoading } from './utils';
 import Header from './components/Header';
+import ProfileScreen from './screens/ProfileScreen';
 
 // hold routes
 // this data come from the parseUrl function
@@ -15,6 +17,8 @@ const routes = {
   '/signin': SignInScreen,
   '/cart/:id': CartScreen,
   '/cart': CartScreen,
+  '/register': RegisterScreen,
+  '/profile': ProfileScreen,
 };
 
 /*********************************************************************
@@ -73,7 +77,8 @@ const router = async () => {
   const main = document.getElementById('main-container');
   main.innerHTML = await screen.render();
 
-  // TODO: Why is this here????
+  // some screens do not have an after render function
+  // the conditional just helps reduce errors
   if(screen.after_render) await screen.after_render();
 
   // hide loading elements when everything is finished loading
